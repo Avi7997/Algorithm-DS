@@ -1,13 +1,15 @@
 #include<bits/stdc++.h>
 using namespace std;
 //This method add or change value of element at specific index.
+int lsb(int i){
+    return (i&(-i));
+}
 void add_element_BIT(int input_array[],int n,int binary_indexed_tree[],int val,int i){
         binary_indexed_tree[i]= binary_indexed_tree[i]-input_array[i-1]+val;
-        int temp1 = i + (i & (-i));
-        while(temp1<=n){
-            binary_indexed_tree[temp1]= binary_indexed_tree[temp1]-input_array[i-1]+val;
-            int temp2 = temp1;
-            temp1 = temp2 + (temp2 & (-temp2));
+        int temp = i + lsb(i);
+        while(temp<=n){
+            binary_indexed_tree[temp]= binary_indexed_tree[temp]-input_array[i-1]+val;
+            temp +=lsb(temp);
         }
 }
 int main()
