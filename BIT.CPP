@@ -1,6 +1,7 @@
 #include<bits/stdc++.h>
 using namespace std;
-void update_BIT(int input_array[],int n,int binary_indexed_tree[],int val,int i){
+//This method add or change value of element at specific index.
+void add_element_BIT(int input_array[],int n,int binary_indexed_tree[],int val,int i){
         binary_indexed_tree[i]= binary_indexed_tree[i]-input_array[i-1]+val;
         int temp1 = i + (i & (-i));
         while(temp1<=n){
@@ -11,13 +12,13 @@ void update_BIT(int input_array[],int n,int binary_indexed_tree[],int val,int i)
 }
 int main()
 {
-    int n,v;
+    int n,element;
     cin>>n;
     int input_array[n+1]={0},binary_indexed_tree[n+1]={0};
     for(int i=0;i<n;i++){
-        cin>>v;
-        update_BIT(input_array,n,binary_indexed_tree,v,i+1);
-        input_array[i]=v;
+        cin>>element;
+        add_element_BIT(input_array,n,binary_indexed_tree,element,i+1);
+        input_array[i]=element;
     }
     for(int i=1;i<=n;i++)
         cout<<binary_indexed_tree[i]<< " ";
