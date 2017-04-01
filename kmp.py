@@ -1,3 +1,4 @@
+#Author : Poojan / Avi
 def lps(pattern):
     l = [0]
     i = 0
@@ -14,7 +15,30 @@ def lps(pattern):
                 i+=1
                 l.append(i)
     return l
+def kmp(string , pattern):
+    s_len = len(string)
+    p_len = len(pattern)
+    lps_ = lps(pattern)
+    j=0
+    ans = []
+    for i in range(s_len):
+        if j==p_len:
+            ans.append(i-p_len)
+            j=lps_[j-1]
+        if string[i] == pattern[j]:
+            j+=1
+        else:
+            while j>0:
+                if string[i]==pattern[j]:
+                    j+=1
+                    break
+                else:
+                    j=lps_[j-1]
+    if j==p_len:
+        print(j)
+        ans.append(s_len-p_len)              
+    return ans
 
-p = "AABAACAABAA"
-l = lps(p)
-print(l)    
+string = input()
+pat = input()
+print(kmp(string,pat)) 
